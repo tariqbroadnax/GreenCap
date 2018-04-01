@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<div id="TopBar" class="row">
+		<div class="jumbotron">
+			<h1>Green Cap</h1>
+		</div>
+	</div>
+	<div class="row">
+		<div id="LeftBar" class="col-sm-3">
+			<ul class="nav nav-pills nav-stacked">
+				<li><a href="index.html">About</a></li>
+				<li><a href="assets.html">Assets</a></li>
+				<li><a href="netcode.html">Netcode</a></li>
+			</ul>
+		</div>
+		<div id="MainFlow" class="col-sm-9">
+			<div id="NavBit">
+				<ul class="pager">
+					<li class="previous"><a href="assets.html">Previous</a></li>
+					<li class="next"><a href="index.html">Next</a></li>
+				</ul>
+			</div>
+			<div id="PageTitle">
+				<h1>Netcode</h1>
+			</div>
+			<div id="PageContent">
+				<p>The network consists of two actors, the client and server.</p>
+
+<h1 id="client">Client</h1>
+
+<p>On initialization, the client attempts to connect to the server. If the client cannot connect, then an IOException is thrown and nothing is loaded. Otherwise, the clients recieves their player's name and loads everything else.</p>
+
+<p>Every frame, the client checks whether they have recieved and/or should send commands.</p>
+
+<p>Once the recieves a command, it updates the local scene. </p>
+
+<p>Whenever the user presses an arrow key, a move command is created. First it updates the local scene. This is a form interpolation that makes the program feel tight. After, the client sends the commands to server. The command is sent as a string in the following format:</p>
+
+<blockquote>
+  <p>move [movex] [movey]</p>
+</blockquote>
+
+<p>The movex and movey specify the direction that the player is moving.</p>
+
+<h1 id="server">Server</h1>
+
+<p>The Server runs on two threads: the connector thread and the update thread.</p>
+
+<p>The connector thread connects with clients. It blocks until a client attempts to connect with it. After it creates a unique player name and sends it to the client. It then continues to block and listen.</p>
+
+<p>The update thread obviously updates. It first checks if a client has sent a command and executes them. It then updates the server's scene. After it sends each client a update command for each player. The command is in the following format.</p>
+
+<blockquote>
+  <p>player [playerAttr0] [playerAttr1] ...</p>
+</blockquote>
+
+<p>In the event that any of this fails, the server disconnects with client immediately.</p>
+			</div>
+		</div>
+	<div>
+</div>
+
+</body>
+</html>
