@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Green Cap</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -13,7 +13,7 @@
 <div class="container">
 	<div id="TopBar" class="row">
 		<div class="jumbotron">
-			<h1>Green Cap</h1>
+			<h1><img src="green_cap_logo.png"> Green Cap</h1>
 		</div>
 	</div>
 	<div class="row">
@@ -35,31 +35,36 @@
 				<h1>Assets</h1>
 			</div>
 			<div id="PageContent">
-				<p>This following image is the only asset that this project uses. </p>
-
-<p><img src="https://opengameart.org/sites/default/files/styles/medium/public/Green-Cap-Character-Classic-Hero-Edit-Preview.png" alt="asset" /></p>
-
-<p>The image was <a href="https://opengameart.org/content/green-cap-character-classic-hero-edit">posted</a> by <a href="https://opengameart.org/users/isaiah658">isaiah658</a> at <a href="opengameart.org">opengameart</a>.</p>
-
-<p>Simplicity was the idea the here. I only used the standing animation in the first row and running animation in the second row. </p>
-
-<p>Because of the absence of a up and down sprites, I use the left and right sprites in their place. Its minialistic, and still looks pretty natural. </p>
-
+				<p>This following image is the only asset that this project uses.</p>
+<p><img src="https://opengameart.org/sites/default/files/styles/medium/public/Green-Cap-Character-Classic-Hero-Edit-Preview.png" alt="asset"></p>
+<p>The image was <a href="https://opengameart.org/content/green-cap-character-classic-hero-edit">posted</a> by isaiah658 at opengameart.</p>
+<p>Simplicity was the idea the here. I only used the standing animation in the first row and running animation in the second row.</p>
+<p>Because of the absence of a up and down sprites, I use the previous horizontal direction (although, fixing the up and down to particular horizontal direction is not unheard of).<br>
+<img src="https://i.imgur.com/nQqqogi.gif" alt="a"><br>
+Since there is no left sprite, I only use the right sprite and reflect it make it look left. I have to shift over the x to compensate for reflecting. It looks like this in the code:</p>
+<pre><code class="language-Java">g.drawImage(frame, frame.getWidth(), <span class="hljs-number">0</span>, -frame.getWidth(), frame.getHeight(), <span class="hljs-keyword">null</span>);
+</code></pre>
+<p>Altogether, I have used one direction’s worth of sprites for three other directons. Its minialistic, and but still manages to not look too bad.</p>
 <p>Even though the image is very simple, it has layout problems. They include:</p>
-
 <ul>
 <li>the padding</li>
-
 <li>inconsistently sized sprites</li>
 </ul>
+<p>These make it hard to parse the bounds of each sprite. The padding forces me to find the top left location of each sprite. The consistent sized sprites forces me to find the size of each sprite.</p>
+<p>Because the sprites are so tightly packed, I could not use an automated tool because the tool will have trouble differentiating each sprite from one another.</p>
+<p>And so, I had to do it by hand. I used to Paint.NET&lt; to do this. Doing the work is not what annoys me. What annoys me how it forces me to hardcode numbers in the code. Here is just some of that mess:</p>
+<pre><code class="language-Java"><span class="hljs-keyword">int</span> x = <span class="hljs-number">0</span>, y = <span class="hljs-number">0</span>, w = <span class="hljs-number">12</span>, h = <span class="hljs-number">17</span>;
 
-<p>These make it hard to parse the bounds of each sprite. The padding forces me to find the top left location of each sprite. The consistent sized sprites forces me to find the size of each sprite. </p>
-
-<p>Because the sprites are so tightly packed, I cannot use an automated tool because the tool will have trouble differentiating each sprite from one another. </p>
-
-<p>And so, I had to do it by hand. I used to Paint.NET&lt; to do this.</p>
-
-<p>Another issue is the non-transparent background. But this can be with bucket tool in any decent Paint program (Paint.NET&lt; in this case).</p>
+<span class="hljs-keyword">if</span>(state == State.STANDING)
+{
+    <span class="hljs-keyword">int</span> frame = (<span class="hljs-keyword">int</span>)(stateElapsed / STANDING_PERIOD);
+    frame %= STANDING_FRAMES;
+        
+    x = <span class="hljs-number">19</span> + frame * <span class="hljs-number">16</span>;
+    y = <span class="hljs-number">15</span>;         
+}
+</code></pre>
+<p>Another issue is the non-transparent background. But this can be with bucket tool in any decent paint program (Paint.NET&lt; in this case).</p>
 			</div>
 		</div>
 	<div>
